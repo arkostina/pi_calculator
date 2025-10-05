@@ -19,7 +19,7 @@ This application calculates Pi to a specified number of decimal places using Cel
 2.  **Build and Run:**
 
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
 
     Services started:
