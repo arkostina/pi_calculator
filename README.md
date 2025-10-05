@@ -12,8 +12,8 @@ This application calculates Pi to a specified number of decimal places using Cel
 1.  **Clone the repository:**
 
     ```bash
-    git clone <your-repo-url>
-    cd <your-repo>
+    git clone https://github.com/arkostina/pi_calculator.git
+    cd pi_calculator
     ```
 
 2.  **Build and Run:**
