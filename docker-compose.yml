@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+
+  web:
+    build: .
+    command: uvicorn app:app --host 0.0.0.0 --port 5000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: celery -A tasks worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    depends_on:
+      - redis
